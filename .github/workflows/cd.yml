@@ -56,9 +56,10 @@ jobs:
           cd /home/${{ secrets.EC2_USERNAME }}/app
           
           # Clone or update repository (using GitHub token for private repo)
+          git config --global user.email "syedmoiezhaider@gmail.com"
           if [ ! -d ".git" ]; then
             echo "Cloning repository for first time..."
-            git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/Areejsherazi/Media-share.git .
+            git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/moiez007/scalableSolutionBackend.git .
           else
             echo "Repository exists, pulling latest changes..."
             git pull origin main

@@ -62,7 +62,7 @@ jobs:
             git clone https://${{ secrets.GITHUB_TOKEN }}@github.com/Areejsherazi/Media-share.git .
           else
             echo "Repository exists, pulling latest changes..."
-            git pull origin test
+            git pull origin main
           fi
           
           # Stop existing containers

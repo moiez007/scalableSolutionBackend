@@ -13,7 +13,7 @@ const { notFound, errorHandler } = require('./middleware/error.middleware');
 const env = require('./config/env');
 
 const app = express();
-//hemlet implemted
+
 app.use(helmet());
 app.use(cors({ origin: '*', credentials: true }));
 app.use(compression());

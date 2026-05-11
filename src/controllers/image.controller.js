@@ -40,6 +40,9 @@ async function upload(req, res, next) {
       creatorId: req.user._id
     });
 
+    // Populate creatorId for the response
+    await image.populate('creatorId', 'username email role');
+
     await clearByPattern('images:*');
     await clearByPattern('search:*');
 
@@ -76,7 +79,7 @@ async function listImages(req, res, next) {
 
     const [images, total] = await Promise.all([
       Image.find(filter)
-        .populate('creatorId', 'username role')
+        .populate('creatorId', 'username email role')
         .sort({ createdAt: -1 })
         .skip(pagination.skip)
         .limit(pagination.limit),
@@ -107,7 +110,7 @@ async function getImageById(req, res, next) {
       return res.status(400).json({ message: 'Invalid image id' });
     }
 
-    const image = await Image.findById(id).populate('creatorId', 'username role');
+    const image = await Image.findById(id).populate('creatorId', 'username email role');
 
     if (!image) {
       return res.status(404).json({ message: 'Image not found' });
@@ -258,7 +261,7 @@ async function searchImages(req, res, next) {
         { caption: { $regex: searchQuery, $options: 'i' } }
       ]
     })
-      .populate('creatorId', 'username role')
+      .populate('creatorId', 'username email role')
       .sort({ createdAt: -1 })
       .limit(20);
 
